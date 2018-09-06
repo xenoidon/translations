@@ -15,6 +15,7 @@ DIRECTORY STRUCTURE
       commands/           contains console commands (controllers)
       config/             contains application configurations
       controllers/        contains Web controller classes
+      database_backups/   dump database file
       mail/               contains view files for e-mails
       models/             contains model classes
       runtime/            contains files generated during runtime
@@ -22,6 +23,7 @@ DIRECTORY STRUCTURE
       vendor/             contains dependent 3rd-party packages
       views/              contains view files for the Web application
       web/                contains the entry script and Web resources
+      test_task.pdf       the description of a test task on which the project is created
 
 
 
@@ -73,6 +75,8 @@ return [
     'charset' => 'utf8',
 ];
 ```
+Import database the file of a backup is in the catalog database_backups/test.sql encoding utf8_general_ci.
+I haven't managed to generate migrations.
 
 **NOTES:**
 - Yii won't create the database for you, this has to be done manually before you can access it.
