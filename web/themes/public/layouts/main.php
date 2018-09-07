@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use app\widgets\Alert;
@@ -11,7 +12,6 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
-var_dump(Yii::$app->user->isGuest);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -32,7 +32,6 @@ var_dump(Yii::$app->user->isGuest);
 
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Work', 'url' => ['/site/work']],
     ];
 
     if (Yii::$app->user->isGuest) {
@@ -47,7 +46,7 @@ var_dump(Yii::$app->user->isGuest);
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
         NavBar::begin([
-            'brandLabel' => ' Balance:'. Yii::$app->user->identity->balance,
+            'brandLabel' => ' Balance:' . Yii::$app->user->identity->balance,
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar-inverse navbar-fixed-top',

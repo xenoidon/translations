@@ -12,8 +12,7 @@ use app\models\SignupForm;
 use app\models\User;
 use app\models\UserSearch;
 use app\models\ConversionForm;
-use app\models\Conversion;
-use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 
 class SiteController extends Controller
 {
@@ -60,25 +59,28 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
+     * The homepage with the list of users and a form of money transfer.
      *
-     * @return string
+     * @return Response
      */
     public function actionIndex()
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         $model = new ConversionForm();
         if (!Yii::$app->user->isGuest) {
             $model->user_id = Yii::$app->user->identity->id;
-            $users = User::find()->where('id != :id', [':id' => $model->user_id])->all();
+            $users = ArrayHelper::map(
+                $searchModel->search('form')->getModels(),
+                'id',
+                'username'
+            );
             if ($model->load(Yii::$app->request->post())) {
-                if($model->validate()) {
-                    $model->status = 2;
+                if ($model->validate()) {
+                    $model->status = Yii::$app->params['STATUS_WORK_WAIT'];
                     $model->save();
                     $model = new ConversionForm();
-                } else {
-
                 }
             }
         }
@@ -87,33 +89,7 @@ class SiteController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'model' => $model,
-            'users' => isset($users)?$users:null
-        ]);
-    }
-
-    /**
-     * Login action.
-     *
-     * @return Response|string
-     */
-    public function actionWork()
-    {
-        $workItems = Conversion::find()
-            ->where('status = :status', [':status' =>  2])
-            ->andWhere('time_transaction <= NOW()')
-            ->all();
-        foreach ($workItems as $key => $item) {
-
-            $userIn = User::findOne($item->user_id);
-            $userTo = User::findOne($item->user_id_to_translate);
-            $userTo->balance += $item->translation;
-            $userIn->balance = $userIn->balance - $item->translation;
-            $userIn->save();
-            $userTo->save();
-            $item->status = 3;
-            $item->save();
-        }
-        return $this->render('work', [
+            'users' => isset($users) ? $users : null
         ]);
     }
 
@@ -173,8 +149,6 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-
-
 
 
 }

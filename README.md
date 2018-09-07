@@ -17,12 +17,13 @@ DIRECTORY STRUCTURE
       controllers/        contains Web controller classes
       database_backups/   dump database file
       mail/               contains view files for e-mails
+      migration/          contains migration files
       models/             contains model classes
       runtime/            contains files generated during runtime
       tests/              contains various tests for the basic application
       vendor/             contains dependent 3rd-party packages
-      views/              contains view files for the Web application
       web/                contains the entry script and Web resources
+      views/themes/public contains view files for the Web application      
       test_task.pdf       the description of a test task on which the project is created
 
 
@@ -63,6 +64,7 @@ CONFIGURATION
 -------------
 
 ### Database
+In the database it is necessary to create base with utf8_general_ci encoding.
 
 Edit the file `config/db.php` with real data, for example:
 
@@ -75,10 +77,29 @@ return [
     'charset' => 'utf8',
 ];
 ```
-Import database the file of a backup is in the catalog database_backups/test.sql encoding utf8_general_ci.
-I haven't managed to generate migrations.
+
+Team of migration from the console we create tables
+
+```
+php yii migrate
+```
 
 **NOTES:**
 - Yii won't create the database for you, this has to be done manually before you can access it.
 - Check and edit the other files in the `config/` directory to customize your application as required.
 - Refer to the README in the `tests` directory for information specific to basic application tests.
+
+OPERATION
+-------------
+
+### Start of process of the translations
+
+It is made by start from console team 
+```
+php yii translation
+```
+Start with a key of true hides a conclusion of text data to the screen. 
+He can be used for start of process of the scheduler of tasks (for example kroner)
+```
+php yii translation true
+```

@@ -145,7 +145,7 @@ class User extends ActiveRecord implements IdentityInterface
             ->where(
                 'status = :status',
                 [
-                ':status' => 2, // ! TO DO  wait translation
+                ':status' => Yii::$app->params['STATUS_WORK_WAIT'],
                 ]
             )
             ->sum('translation');

@@ -59,12 +59,18 @@ class UserSearch extends User
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'balance' => $this->balance,
         ]);
+
+        if(isset($params) && $params == 'form') {
+            $query->andFilterWhere(['!=', 'id', Yii::$app->user->identity->id]);
+        } else {
+            $query->andFilterWhere(['id' => $this->id]);
+        }
+
 
         $query->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'auth_key', $this->auth_key])

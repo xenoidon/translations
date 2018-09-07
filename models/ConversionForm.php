@@ -6,7 +6,7 @@ use Yii;
 use yii\base\Model;
 
 /**
- * ContactForm is the model behind the contact form.
+ * ConversionForm is the model for a money transfer form
  */
 class ConversionForm extends Model
 {
@@ -59,7 +59,7 @@ class ConversionForm extends Model
     }
 
     /**
-     * @return model User
+     * @return model Conversion
      */
     public function getCurrentuserTranslatesSumma()
     {
@@ -91,7 +91,7 @@ class ConversionForm extends Model
     /**
      * Addition of the new translation.
      *
-     * @return Conversion
+     * @return model Conversion
      */
     public function save()
     {
