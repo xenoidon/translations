@@ -99,7 +99,7 @@ It is made by start from console team
 php yii translation
 ```
 Start with a key of true hides a conclusion of text data to the screen. 
-He can be used for start of process of the scheduler of tasks (for example kroner)
+He can be used for start of process of the scheduler of tasks (for example cron)
 ```
 php yii translation true
 ```
