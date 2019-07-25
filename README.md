@@ -49,7 +49,7 @@ git clone https://github.com/xenoidon/translations.git
 ~~~
 
 ~~~
-php composer.phar update
+composer update
 ~~~
 
 Now you should be able to access the application through the following URL, assuming `basic` is the directory

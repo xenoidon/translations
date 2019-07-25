@@ -132,8 +132,8 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getConversion()
     {
-            return $this->hasOne(Conversion::className(), ['user_id' => 'id'])
-                ->orderBy('id DESC');
+        return $this->hasOne(Conversion::className(), ['user_id' => 'id'])
+            ->orderBy('id DESC');
     }
 
     /**
@@ -145,7 +145,7 @@ class User extends ActiveRecord implements IdentityInterface
             ->where(
                 'status = :status',
                 [
-                ':status' => Yii::$app->params['STATUS_WORK_WAIT'],
+                    ':status' => Yii::$app->params['STATUS_WORK_WAIT'],
                 ]
             )
             ->sum('translation');

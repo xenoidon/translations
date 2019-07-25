@@ -65,7 +65,7 @@ class UserSearch extends User
             'balance' => $this->balance,
         ]);
 
-        if(isset($params) && $params == 'form') {
+        if (isset($params) && $params == 'form') {
             $query->andFilterWhere(['!=', 'id', Yii::$app->user->identity->id]);
         } else {
             $query->andFilterWhere(['id' => $this->id]);

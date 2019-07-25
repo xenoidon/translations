@@ -34,8 +34,8 @@ class Conversion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id','translation','time_transaction'], 'required'],
-            [['user_id', 'status', 'translation','user_id_to_translate'], 'integer'],
+            [['user_id', 'translation', 'time_transaction'], 'required'],
+            [['user_id', 'status', 'translation', 'user_id_to_translate'], 'integer'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }

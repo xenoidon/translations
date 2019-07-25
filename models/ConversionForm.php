@@ -30,19 +30,19 @@ class ConversionForm extends Model
 
             ['translation', function ($attribute, $params) {
 
-                    if($this->translation <=0) {
-                        $this->addError($attribute, "Amount of transfer doesn't wash to be less or is equal to 0!" );
-                    }
+                if ($this->translation <= 0) {
+                    $this->addError($attribute, "Amount of transfer doesn't wash to be less or is equal to 0!");
+                }
 
-                    if($this->user_id_to_translate == Yii::$app->user->identity->id) {
-                        $this->addError($attribute, "Itself can't transfer money!" );
-                    }
+                if ($this->user_id_to_translate == Yii::$app->user->identity->id) {
+                    $this->addError($attribute, "Itself can't transfer money!");
+                }
 
-                    $user = $this->getCurrentuser();
-                    $userTranslations = $this->getCurrentuserTranslatesSumma();
-                    if( $user->balance-$this->translation-$userTranslations<0 ) {
-                        $this->addError($attribute, "There isn't enough means on balance!");
-                    }
+                $user = $this->getCurrentuser();
+                $userTranslations = $this->getCurrentuserTranslatesSumma();
+                if ($user->balance - $this->translation - $userTranslations < 0) {
+                    $this->addError($attribute, "There isn't enough means on balance!");
+                }
             }],
 
 
@@ -63,10 +63,10 @@ class ConversionForm extends Model
      */
     public function getCurrentuserTranslatesSumma()
     {
-         return  Conversion::find()
-             ->where('user_id = :id', [':id' =>  Yii::$app->user->identity->id])
-             ->andWhere('status = :status', [':status' => 2])
-             ->sum('translation');
+        return Conversion::find()
+            ->where('user_id = :id', [':id' => Yii::$app->user->identity->id])
+            ->andWhere('status = :status', [':status' => 2])
+            ->sum('translation');
 
     }
 
@@ -87,7 +87,6 @@ class ConversionForm extends Model
         ];
     }
 
-
     /**
      * Addition of the new translation.
      *
@@ -97,7 +96,7 @@ class ConversionForm extends Model
     {
         $model = new Conversion();
         $model->attributes = $this->attributes;
-        if($model->save()) {
+        if ($model->save()) {
             return $model;
         }
         return $model->getErrors();

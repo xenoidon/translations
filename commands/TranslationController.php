@@ -28,8 +28,9 @@ class TranslationController extends Controller
      */
     public function actionIndex($hide = false)
     {
-        if (!$hide)
+        if (!$hide) {
             echo "Start of processing of the list of the translations" . "\n";
+        }
 
         $workItems = Conversion::find()
             ->where('status = :status', [':status' => Yii::$app->params['STATUS_WORK_WAIT']])
@@ -40,10 +41,10 @@ class TranslationController extends Controller
             $userTo = User::findOne($item->user_id_to_translate);
             $userTo->balance += $item->translation;
             $userIn->balance -= $item->translation;
-            if ( $userIn->save() ) {
-                if( $userTo->save() ) {
+            if ($userIn->save()) {
+                if ($userTo->save()) {
                     $item->status = Yii::$app->params['STATUS_WORK_SUCC'];
-                    if ( $item->save() ) {
+                    if ($item->save()) {
                         $messageLog = 0;
                     } else {
                         $messageLog = 1;
@@ -65,12 +66,11 @@ class TranslationController extends Controller
                         break;;
                 }
             }
-
-
         }
 
-        if (!$hide)
+        if (!$hide) {
             echo "Process is complete." . "\n";
+        }
 
         return ExitCode::OK;
     }
